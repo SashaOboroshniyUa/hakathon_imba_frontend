@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <style>
+        /* Фон на весь экран */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background: url('../static/photos/background.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Контейнер формы */
+        .form-container {
+            padding: 2rem;
+            border-radius: 10px;
+            width: 320px;
+            margin-left: 5%;
+            background: white; /* Четкий фон формы */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            color: #333;
+            text-align: center;
+        }
+
+        /* Поля ввода */
+        .input {
+            background: white;
+            color: black;
+        }
+
+        /* Кнопка */
+        .button {
+            width: 100%;
+        }
+
+        /* Ошибка */
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Текст внизу */
+        .help-text {
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="title">Register</h2>
+        <form method="POST" onsubmit="return validatePasswords()">
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="John Doe" name="name" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="email" placeholder="abc123@gmail.com" name="email" required>
+                    <span class="icon is-small is-left">
+                        📧
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control has-icons-left">
+                    <input id="password" class="input" type="password" placeholder="Enter your password" name="password" required>
+                    <span class="icon is-small is-left">
+                        🔒
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Confirm Password</label>
+                <div class="control has-icons-left">
+                    <input id="confirm_password" class="input" type="password" placeholder="Confirm your password" name="confirm_password" required>
+                    <span class="icon is-small is-left">
+                        🔑
+                    </span>
+                </div>
+                <p id="error-message" class="error-message">Passwords do not match!</p>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link">Register</button>
+                </div>
+            </div>
+            <p class="help-text">Already have an account? <a href="{{ url_for('get_login') }}">Sign in</a></p>
+        </form>
+    </div>
+
+    <script>
+        function validatePasswords() {
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirm_password").value;
+            let errorMessage = document.getElementById("error-message");
+
+            if (password !== confirmPassword) {
+                errorMessage.style.display = "block";
+                return false;
+            } else {
+                errorMessage.style.display = "none";
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

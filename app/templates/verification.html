@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Verification Code</h2>
+        <p>Thank you for signing up! A verification code has been sent to your email address. Please enter the code below to complete your registration.</p>
+
+        {% if error_message %}
+            <div class="error-message">
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
+
+        <form action="{{ url_for('post_verify_code') }}" method="POST">
+            <label for="verification_code">Enter Verification Code:</label>
+            <input type="text" id="verification_code" name="verification_code" required>
+
+            <button type="submit">Verify Code</button>
+        </form>
+
+        <p>Didn't receive the code? <a href="{{ url_for('get_signup') }}">Resend</a></p>
+    </div>
+</body>
+</html>
