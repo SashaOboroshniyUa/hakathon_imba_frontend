@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('../static/photos/background.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .profile-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .input-field, .textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            resize: none;
+        }
+
+        .input-field::placeholder, .textarea::placeholder {
+            font-weight: bold;
+            color: #888;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007BFF;
+            margin-bottom: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <h1 class="title">Edit Profile</h1>
+
+        <form action="{{ url_for('post_edit_profile_page') }}" method="POST" enctype="multipart/form-data">
+            <img src="{{ profile.photo }}" alt="Current Profile Photo" class="profile-photo">
+            <input type="url" id="photo" name="photo" class="input-field" value="{{ profile.photo }}" placeholder="Enter profile photo URL" required>
+
+            <input type="text" id="username" name="username" class="input-field" value="{{ profile.username }}" placeholder="Enter username" required>
+
+            <input type="email" id="gmail" name="gmail" class="input-field" value="{{ profile.gmail }}" placeholder="Enter email" required>
+
+            <textarea id="prof_description" name="prof_description" class="textarea" placeholder="Tell us about yourself" required>{{ profile.prof_description }}</textarea>
+
+            <button type="submit" class="submit-btn">Save Changes</button>
+        </form>
+
+        <a href="{{ url_for('get_profile_page') }}" class="back-link">Back to Profile</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Quests</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: url('../static/photos/background.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .quest-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .quest-list {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .quest-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .quest-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        p {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: white;
+            background: red;
+            font-size: 20px;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #1f8a37;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quest-form">
+        <h2>Add New Quest</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input id="description" name="description" required>
+            </div>
+            <div class="form-group">
+                <label for="points">Points:</label>
+                <input type="text" id="points" name="points" required>
+            </div>
+            <div class="form-group">
+                <label for="answer">Answer:</label>
+                <input type="text" id="answer" name="answer" required>
+            </div>
+            <button type="submit">Add Quest</button>
+        </form>
+    </div>
+
+    <div class="quest-list">
+        <h2>Existing Quests</h2>
+        {% for quest in quests %}
+        <div class="quest-item">
+            <h3>Name: {{ quest['name'] }}</h3>
+            <p><strong>Description:</strong> {{ quest['description'] }}</p>
+            <p><strong>Answer:</strong> {{ quest['answer'] }}</p>
+            <p><strong>Points:</strong> {{ quest['points'] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="back-link">
+        <a href="{{ url_for('get_menu_page') }}">Back to Menu</a>
+    </div>
+
+</body>
+</html>

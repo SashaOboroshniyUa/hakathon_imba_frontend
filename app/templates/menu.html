@@ -1,11 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Menu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: url('../static/photos/background.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+
+        .menu-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #f8f9fa;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .quest-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            width: 320px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .points {
+            font-weight: bold;
+            color: #007BFF;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #007BFF;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1f8a37;
+        }
+
+        .add-quest-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .btn-lg {
+            font-size: 1.2rem;
+            padding: 12px 24px;
+        }
+    </style>
 </head>
 <body>
-	
+
+    <div class="menu-container">
+        <h1>Available Quests</h1>
+    </div>
+
+    <div class="quest-grid">
+        {% for quest in quests %}
+        <div class="card">
+            <h5 class="card-title">{{ quest.name }}</h5>
+            <p class="card-text">{{ quest.description[:100] }}{% if quest.description|length > 100 %}...{% endif %}</p>
+            <p class="points">Points: {{ quest.points }}</p>
+            {% if quest.is_completed %}
+                <button class="btn btn-success" disabled>Completed</button>
+            {% else %}
+                <a href="{{ url_for('get_quest', quest_id=quest.quest_id) }}" class="btn btn-primary">Start Quest</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="add-quest-container">
+        <a href="{{ url_for('get_add_quests') }}" class="btn btn-success btn-lg">Add Quests</a>
+    </div>
+
 </body>
 </html>

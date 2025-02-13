@@ -1,10 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Navbar</title>
+	<style>
+	body {
+		margin: 0;
+		font-family: Arial, sans-serif;
+	}
+
+	a {
+		text-decoration: none;
+		color: white;
+	}
+
+	.navbar {
+    	display: flex;
+    	justify-content: space-between;
+    	align-items: center;
+    	background: #333;
+    	padding: 15px 30px;
+    	border-radius: 5px;
+	}
+
+	.profile {
+    	color: white;
+    	font-size: 24px;
+    	font-weight: bold;
+	}
+
+	.nav-links {
+    	list-style: none;
+    	display: flex;
+    	gap: 20px;
+    	padding: 0;
+    	margin: 0;
+	}
+
+	.nav-links li {
+    	display: inline;
+	}
+
+	.nav-links a {
+    	text-decoration: none;
+    	color: white;
+    	font-size: 18px;
+    	transition: color 0.3s ease;
+	}
+
+	.nav-links a:hover {
+    	color: #ffcc00;
+    	transition: 0.8s;
+	}
+
+	</style>
 </head>
 <body>
-
+	<nav class="navbar">
+		<div class="profile">
+			<a href="#">Profile</a>
+		</div>
+        <ul class="nav-links">
+            <li><a href="#">Menu</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Contacts</a></li>
+        </ul>
+    </nav>
 </body>
 </html>

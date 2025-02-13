@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('../static/photos/background.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .feedback-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .textarea, .rating {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            resize: none;
+        }
+
+        .textarea::placeholder, .rating::placeholder {
+            font-weight: bold;
+            color: #888;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .feedback-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .feedback-card {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .feedback-text {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .feedback-rating {
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .positive {
+            background: #28a745;
+            color: white;
+        }
+
+        .negative {
+            background: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="feedback-container">
+        <h1 class="title">Feedback</h1>
+
+        <form method="POST" action="{{ url_for('add_feedback') }}" class="feedback-form">
+            {{ form.csrf_token }}
+
+            <label class="label">Ваш отзыв</label>
+            {{ form.text(class="textarea", placeholder="Напишите ваш отзыв ...") }}
+
+            <label class="label">Оценка</label>
+            {{ form.rating(class="rating", placeholder="Оцените от 1 до 5") }}
+
+            <button class="submit-btn" type="submit">Оставить отзыв</button>
+        </form>
+
+        <div class="feedback-list">
+            {% for feedback in feedbacks %}
+            <div class="feedback-card">
+                <p class="feedback-text">{{ feedback['text'] }}</p>
+                <p class="feedback-rating">
+                    {% if feedback['rating'] == 1 %}
+                        <span class="tag negative">Негативный</span>
+                    {% else %}
+                        <span class="tag positive">Положительный</span>
+                    {% endif %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
